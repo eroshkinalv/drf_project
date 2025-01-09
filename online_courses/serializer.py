@@ -6,12 +6,13 @@ from online_courses.models import Course, Lesson
 class LessonSerializer(ModelSerializer):
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = "__all__"
+        read_only_fields = ['owner']
 
 
 class CourseSerializer(ModelSerializer):
 
-    lessons_view = LessonSerializer(many=True, read_only=True, source='lesson_set')
+    lessons = LessonSerializer(many=True, read_only=True, source="lesson_set")
 
     lessons_count = SerializerMethodField()
 
@@ -20,4 +21,5 @@ class CourseSerializer(ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('name', 'image', 'description', 'lessons_count', 'lessons_view')
+        fields = ("name", "image", "description", "owner", "lessons_count", "lessons")
+        read_only_fields = ['owner']
