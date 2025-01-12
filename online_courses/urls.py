@@ -7,7 +7,8 @@ from online_courses.views import (
     LessonListApiView,
     LessonRetrieveApiView,
     LessonUpdateApiView,
-    LessonDestroyApiView, FollowListApiView,
+    LessonDestroyApiView,
+    FollowListApiView,
 )
 
 from online_courses.apps import OnlineCoursesConfig
@@ -24,7 +25,6 @@ urlpatterns = [
     path("lessons/<int:pk>/", LessonRetrieveApiView.as_view(), name="lesson_retrieve"),
     path("lessons/<int:pk>/update/", LessonUpdateApiView.as_view(), name="lesson_update"),
     path("lessons/<int:pk>/delete/", LessonDestroyApiView.as_view(), name="lesson_delete"),
-
     path("follows/", FollowListApiView.as_view(), name="follow_list"),
 ]
 

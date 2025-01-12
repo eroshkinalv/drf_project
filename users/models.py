@@ -36,6 +36,16 @@ class Payment(models.Model):
     METHOD_CHOICES = (("Наличные", "Наличные"), ("Перевод на счет", "Перевод на счет"))
     payment_method = models.CharField(max_length=250, verbose_name="Способ оплаты", choices=METHOD_CHOICES)
 
+    session_id = models.CharField(max_length=250, verbose_name="id сессии платежа", null=True, blank=True)
+    payment_link = models.URLField(max_length=400, verbose_name="Ссылка на оплату", null=True, blank=True)
+    status = models.CharField(
+        max_length=250,
+        verbose_name="Статус платежа",
+        null=True,
+        blank=True,
+        help_text="complete(оплачен)/expired(не действителен)/open(ожидает оплаты)",
+    )
+
     class Meta:
         verbose_name = "Платеж"
         verbose_name_plural = "Платежи"
