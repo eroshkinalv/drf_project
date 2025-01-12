@@ -21,9 +21,9 @@ urlpatterns = [
     path("register/", UserCreateApiView.as_view(), name="register"),
 
     path("user/", UserListApiView.as_view(), name="user_list"),
-    path("user/", UserRetrieveApiView.as_view(), name="user_retrieve"),
-    path("user/", UserUpdateApiView.as_view(), name="user_update"),
-    path("user/", UserDestroyApiView.as_view(), name="user_destroy"),
+    path("user/<int:pk>/", UserRetrieveApiView.as_view(), name="user_retrieve"),
+    path("user/<int:pk>/update/", UserUpdateApiView.as_view(), name="user_update"),
+    path("user/<int:pk>/delete/", UserDestroyApiView.as_view(), name="user_delete"),
 ]
 
 urlpatterns += router.urls

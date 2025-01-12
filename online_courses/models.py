@@ -33,3 +33,8 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Follow(models.Model):
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name="Пользователь")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс")

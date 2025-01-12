@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
-from online_courses.models import Course, Lesson
+from online_courses.models import Course, Lesson, Follow
+from online_courses.validators import VideoValidator
 
 
 class LessonSerializer(ModelSerializer):
@@ -8,9 +9,17 @@ class LessonSerializer(ModelSerializer):
         model = Lesson
         fields = "__all__"
         read_only_fields = ['owner']
+        validators = [VideoValidator(field='video')]
 
 
 class CourseSerializer(ModelSerializer):
+
+    follow = SerializerMethodField()
+
+    def get_follow(self, course):
+        if Follow.objects.filter(course=course):
+            return True
+        return False
 
     lessons = LessonSerializer(many=True, read_only=True, source="lesson_set")
 
@@ -21,5 +30,11 @@ class CourseSerializer(ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ("name", "image", "description", "owner", "lessons_count", "lessons")
+        fields = ("name", "image", "description", "owner", "lessons_count", "lessons", "follow")
         read_only_fields = ['owner']
+
+
+class FollowSerializer(ModelSerializer):
+    class Meta:
+        model = Follow
+        fields = "__all__"
