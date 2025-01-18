@@ -20,13 +20,9 @@ class CourseTestCase(APITestCase):
         response = self.client.get(url)
         data = response.json()
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(
-            data.get("name"), "The Magic of Art"
-        )
+        self.assertEqual(data.get("name"), "The Magic of Art")
 
     def test_course_create(self):
 
@@ -34,13 +30,9 @@ class CourseTestCase(APITestCase):
         data = {"name": "МЭШ", "owner": self.user}
         response = self.client.post(url, data)
 
-        self.assertEqual(
-            response.status_code, status.HTTP_201_CREATED
-        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        self.assertEqual(
-            Course.objects.all().count(), 2
-        )
+        self.assertEqual(Course.objects.all().count(), 2)
 
     def test_course_update(self):
 
@@ -48,26 +40,18 @@ class CourseTestCase(APITestCase):
         data = {"description": "It's a kind of magic", "owner": self.user}
         response = self.client.patch(url, data)
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(
-            data.get("description"), "It's a kind of magic"
-        )
+        self.assertEqual(data.get("description"), "It's a kind of magic")
 
     def test_course_delete(self):
 
         url = reverse("online_courses:course-detail", args=(self.course.pk,))
         response = self.client.delete(url)
 
-        self.assertEqual(
-            response.status_code, status.HTTP_204_NO_CONTENT
-        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        self.assertEqual(
-            Course.objects.all().count(), 0
-        )
+        self.assertEqual(Course.objects.all().count(), 0)
 
     def test_course_list(self):
 
@@ -75,30 +59,36 @@ class CourseTestCase(APITestCase):
         response = self.client.get(url)
         data = response.json()
 
-        result = {'count': 1,
-                  'next': None,
-                  'previous': None,
-                  'results': [{'name': self.course.name,
-                               'image': None,
-                               'description': None,
-                               'owner': self.user.pk,
-                               'lessons_count': 1,
-                               'lessons': [{'id': self.lesson.pk,
-                                            'name': self.lesson.name,
-                                            'description': None,
-                                            'image': None,
-                                            'video': None,
-                                            'course': self.course.pk,
-                                            'owner': self.user.pk}],
-                               'follow': False}]}
+        result = {
+            "count": 1,
+            "next": None,
+            "previous": None,
+            "results": [
+                {
+                    "name": self.course.name,
+                    "image": None,
+                    "description": None,
+                    "owner": self.user.pk,
+                    "lessons_count": 1,
+                    "lessons": [
+                        {
+                            "id": self.lesson.pk,
+                            "name": self.lesson.name,
+                            "description": None,
+                            "image": None,
+                            "video": None,
+                            "course": self.course.pk,
+                            "owner": self.user.pk,
+                        }
+                    ],
+                    "follow": False,
+                }
+            ],
+        }
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(
-            data, result
-        )
+        self.assertEqual(data, result)
 
 
 class LessonTestCase(APITestCase):
@@ -115,13 +105,9 @@ class LessonTestCase(APITestCase):
         response = self.client.get(url)
         data = response.json()
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(
-            data.get("name"), self.lesson.name
-        )
+        self.assertEqual(data.get("name"), self.lesson.name)
 
     def test_lesson_create(self):
 
@@ -129,62 +115,52 @@ class LessonTestCase(APITestCase):
         data = {"name": "Forms of Art", "course": self.course.pk, "owner": self.user}
         response = self.client.post(url, data)
 
-        self.assertEqual(
-            response.status_code, status.HTTP_201_CREATED
-        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        self.assertEqual(
-            Lesson.objects.all().count(), 2
-        )
+        self.assertEqual(Lesson.objects.all().count(), 2)
 
     def test_lesson_update(self):
         url = reverse("online_courses:lesson_update", args=(self.lesson.pk,))
         data = {"description": "There is no must in Art because it is free", "owner": self.user}
         response = self.client.patch(url, data)
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(
-            data.get("description"), "There is no must in Art because it is free"
-        )
+        self.assertEqual(data.get("description"), "There is no must in Art because it is free")
 
     def test_lesson_delete(self):
         url = reverse("online_courses:lesson_delete", args=(self.lesson.pk,))
         response = self.client.delete(url)
 
-        self.assertEqual(
-            response.status_code, status.HTTP_204_NO_CONTENT
-        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        self.assertEqual(
-            Lesson.objects.all().count(), 0
-        )
+        self.assertEqual(Lesson.objects.all().count(), 0)
 
     def test_course_list(self):
         url = reverse("online_courses:lesson_list")
         response = self.client.get(url)
         data = response.json()
 
-        result = {'count': 1,
-                  'next': None,
-                  'previous': None,
-                  'results': [{'id': self.lesson.pk,
-                               'name': self.lesson.name,
-                               'description': None,
-                               'image': None,
-                               'video': None,
-                               'course': self.course.pk,
-                               'owner': self.user.pk}]}
+        result = {
+            "count": 1,
+            "next": None,
+            "previous": None,
+            "results": [
+                {
+                    "id": self.lesson.pk,
+                    "name": self.lesson.name,
+                    "description": None,
+                    "image": None,
+                    "video": None,
+                    "course": self.course.pk,
+                    "owner": self.user.pk,
+                }
+            ],
+        }
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(
-            data, result
-        )
+        self.assertEqual(data, result)
 
 
 class FollowTestCase(APITestCase):
@@ -201,12 +177,8 @@ class FollowTestCase(APITestCase):
         response = self.client.get(url)
         data = response.json()
 
-        result = [{'id': 1, 'user': 6, 'course': 7}]
+        result = [{"id": 1, "user": 6, "course": 7}]
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(
-            data, result
-        )
+        self.assertEqual(data, result)

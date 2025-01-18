@@ -8,8 +8,8 @@ class LessonSerializer(ModelSerializer):
     class Meta:
         model = Lesson
         fields = "__all__"
-        read_only_fields = ['owner']
-        validators = [VideoValidator(field='video')]
+        read_only_fields = ["owner"]
+        validators = [VideoValidator(field="video")]
 
 
 class CourseSerializer(ModelSerializer):
@@ -31,7 +31,7 @@ class CourseSerializer(ModelSerializer):
     class Meta:
         model = Course
         fields = ("name", "image", "description", "owner", "lessons_count", "lessons", "follow")
-        read_only_fields = ['owner']
+        read_only_fields = ["owner"]
 
 
 class FollowSerializer(ModelSerializer):

@@ -5,7 +5,8 @@ class IsModer(permissions.BasePermission):
     """
     Проверяет, является ли пользователь модератором.
     """
-    message = 'Модератор'
+
+    message = "Модератор"
 
     def has_permission(self, request, view):
         return request.user.groups.filter(name="moderator").exists()

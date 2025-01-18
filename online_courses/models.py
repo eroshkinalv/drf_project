@@ -6,7 +6,7 @@ class Course(models.Model):
     image = models.ImageField(upload_to="course_img/", null=True, blank=True, verbose_name="Превью (картинка)")
     description = models.TextField(null=True, blank=True, verbose_name="Описание курса")
 
-    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name="Создатель объекта")
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Создатель объекта")
 
     class Meta:
         verbose_name = "Курс"
@@ -20,12 +20,12 @@ class Lesson(models.Model):
     name = models.CharField(max_length=200, unique=True, verbose_name="Название урока")
     description = models.TextField(null=True, blank=True, verbose_name="Описание урока")
     image = models.ImageField(upload_to="unit_img/", null=True, blank=True, verbose_name="Превью (картинка)")
-    video = models.CharField(null=True, blank=True, verbose_name="Ссылка на видео")
+    video = models.URLField(null=True, blank=True, verbose_name="Ссылка на видео")
 
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, verbose_name="Название курса", related_name="lesson_set"
     )
-    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name="Создатель объекта")
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Создатель объекта")
 
     class Meta:
         verbose_name = "Урок"
@@ -36,5 +36,5 @@ class Lesson(models.Model):
 
 
 class Follow(models.Model):
-    user = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name="Пользователь")
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Пользователь")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс")
