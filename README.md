@@ -51,6 +51,3 @@ pip install -r requirements.txt
 ## Тестирование:
 
 Данный проект покрыт юнит-тестами. Для их запуска выполните команду:
-```
-python manage.py test
-```
