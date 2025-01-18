@@ -7,6 +7,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "email",
+        "last_login",
     )
     list_filter = ("email",)
     search_fields = ("id", "email")
