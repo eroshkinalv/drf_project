@@ -12,7 +12,7 @@ def check_active_users():
 
     for user in User.objects.filter(is_active=True):
         date = datetime.datetime.now().date()
-        delta = timedelta(days=120)
+        delta = timedelta(days=30)
         if user.last_login:
             if user.last_login + delta < date:
                 user.is_active = False
