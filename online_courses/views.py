@@ -13,6 +13,7 @@ from rest_framework.generics import (
 from online_courses.models import Course, Lesson, Follow
 from online_courses.paginators import LessonPagination, CoursePagination
 from online_courses.serializer import CourseSerializer, LessonSerializer, FollowSerializer
+from online_courses.tasks import check_update
 from users.permissions import IsModer, IsOwner
 
 
@@ -47,6 +48,8 @@ class LessonCreateApiView(CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+        new_lesson = serializer.save()
+        check_update.delay(new_lesson.pk)
 
 
 class LessonListApiView(ListAPIView):

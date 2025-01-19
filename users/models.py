@@ -11,6 +11,9 @@ class User(AbstractUser):
     image = models.ImageField(upload_to="profile_img/", null=True, blank=True, verbose_name="Аватар")
     city = models.CharField(max_length=120, null=True, blank=True, verbose_name="Город")
 
+    last_login = models.DateField(auto_now_add=True, verbose_name="Последняя активность", null=True, blank=True,)
+    is_active = models.BooleanField(default=True, verbose_name="Активен")
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
