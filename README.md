@@ -38,9 +38,13 @@ CRUD:
 ```
 git clone https://github.com/eroshkinalv/drf_project.git
 ```
-2. Установите зависимости:
+2. Запустите Docker:
 ```
-pip install -r requirements.txt
+docker compose up --build --force-recreate -d
+```
+3. Проверьте работоспособность сервисов:
+```
+docker ps
 ```
 
 ## Документация:
