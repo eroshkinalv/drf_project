@@ -38,15 +38,22 @@ CRUD:
 ```
 git clone https://github.com/eroshkinalv/drf_project.git
 ```
-2. Установите зависимости:
+2. Настройте переменные окружения [(файл .env)](.env_sample)
+
+3. Запустите Docker:
 ```
-pip install -r requirements.txt
+docker compose up --build --force-recreate -d
+```
+4. Проверьте работоспособность сервисов (web, db, redis, celery, celery beat):
+```
+docker ps
 ```
 
 ## Документация:
 
 Для получения дополнительной информации обратитесь к [README.md].
 Добавлена документация drf-yagst.
+
 ## Лицензия:
 
 Этот проект лицензирован по [лицензии](LICENSE.txt).
